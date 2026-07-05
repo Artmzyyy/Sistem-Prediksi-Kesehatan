@@ -7,7 +7,7 @@ Sistem prediksi tingkat kesehatan individu berbasis *Machine Learning* menggunak
 ## 📝 Deskripsi Sistem
 Sistem ini merupakan aplikasi berbasis *Artificial Intelligence* (AI) yang digunakan untuk memprediksi tingkat kesehatan individu berdasarkan pola gaya hidup pengguna. 
 
-Sistem bekerja dengan menerima beberapa data masukan (*input*) dari pengguna seperti usia, berat badan, tinggi badan, kebiasaan olahraga, pola tidur, konsumsi air putih, kebiasaan merokok, dan pola makan. Data tersebut kemudian diproses menggunakan metode *Machine Learning Logistic Regression* untuk menghasilkan prediksi berupa:
+Sistem bekerja dengan menerima beberapa data masukan (*input*) dari pengguna seperti usia, berat badan, tinggi badan, pola tidur, kebiasaan alkohol, dan kebiasaan merokok. Data tersebut kemudian diproses menggunakan metode *Machine Learning Logistic Regression* untuk menghasilkan prediksi berupa:
 * **Kategori kesehatan pengguna:** Sehat, Kurang Sehat, atau Tidak Sehat.
 * **Skor kesehatan:** Ditampilkan dalam bentuk persentase atau skala tertentu.
 

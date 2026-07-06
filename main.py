@@ -33,7 +33,8 @@ y = df["disease_risk"]
 
 x_train, x_test, y_train, y_test = train_test_split(
     x, y, test_size=0.2, 
-    random_state=42
+    random_state=42,
+    stratify=y
     )
 
 x_train = scaler.fit_transform(x_train)
@@ -56,6 +57,12 @@ print(df["gender"].value_counts())
 print("===============================")
 
 print(df.describe())
+print("\nKorelasi dengan disease_risk")
+corr = df.corr(numeric_only=True)
+print(corr["disease_risk"].sort_values(ascending=False))
+print("===============================")
+
+
 print(df.isnull().sum())
 print(df['disease_risk'].value_counts())
 sns.countplot(x='disease_risk', data=df)
@@ -64,6 +71,10 @@ plt.show()
 
 print("Output DF COLUMNS")
 print(df.columns)
+for col in df.columns:
+    print(col)
+    print(df[col].value_counts().head())
+    print("===============================")
 
 print("===============================")
 print("Hasil: ")

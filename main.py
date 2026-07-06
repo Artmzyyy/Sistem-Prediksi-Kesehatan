@@ -16,7 +16,11 @@ from sklearn.metrics import(
     classification_report
 )
 
+encoder = LabelEncoder()
+
 df = pd.read_csv('dataset/health_lifestyle_dataset.csv')
+df["gender"] = encoder.fit_transform(df["gender"])
+df = df.drop("id", axis=1)
 print("Output DF INFO dan HEAD")
 print(df.head())
 print(df.info())
@@ -31,5 +35,7 @@ plt.show()
 
 print("Output DF COLUMNS")
 print(df.columns)
+
+
 
 

@@ -1,87 +1,158 @@
-import pandas as pd
-import numpy as np
+import customtkinter as ctk
 
-import matplotlib.pyplot as plt
-import seaborn as sns
+def hitung_bmi(bb, tb):
+    tinggi = tb / 100
+    bmi = bb / (tinggi * tinggi)
+    return round(bmi, 2)
 
-from sklearn.model_selection import train_test_split  
-from sklearn.linear_model import LogisticRegression
-from sklearn.preprocessing import LabelEncoder
-from sklearn.preprocessing import StandardScaler
-from sklearn.metrics import(
-    accuracy_score,
-    precision_score,
-    recall_score,
-    f1_score,
-    confusion_matrix,
-    classification_report
+def kategori_bmi(bmi):
+    if bmi < 18.5:
+        return 1  # Underweight
+    elif bmi < 25:
+        return 0  # Normal
+    elif 25 <= bmi < 30:
+        return 3  # Overweight
+    else:
+        return 2  # Obese
+
+
+
+# ==========================================
+# PENGATURAN TEMA
+# ==========================================
+
+ctk.set_appearance_mode("dark")
+ctk.set_default_color_theme("blue")
+
+# ==========================================
+# WINDOW
+# ==========================================
+
+app = ctk.CTk()
+
+app.title("Sistem Prediksi Tingkat Kesehatan Individu")
+
+app.geometry("900x700")
+
+app.resizable(False, False)
+
+# ==========================================
+# JUDUL
+# ==========================================
+
+judul = ctk.CTkLabel(
+    app,
+    text="Sistem Prediksi Tingkat Kesehatan Individu",
+    font=("Arial", 28, "bold")
 )
-encoder = LabelEncoder()
-scaler = StandardScaler()
-model = LogisticRegression(
-    class_weight='balanced',
-    max_iter=1000,
-    random_state=42
+
+judul.pack(pady=20)
+
+subjudul = ctk.CTkLabel(
+    app,
+    text="Prediksi berdasarkan pola tidur dan gaya hidup",
+    font=("Arial", 16)
 )
 
-df = pd.read_csv('dataset/health_lifestyle_dataset.csv')
-df["gender"] = encoder.fit_transform(df["gender"])
-df = df.drop("id", axis=1)
+subjudul.pack()
 
-x = df.drop("disease_risk", axis=1)
-y = df["disease_risk"]
+frame = ctk.CTkFrame(
+    app,
+    width=800,
+    height=550,
+    corner_radius=15
+)
 
-x_train, x_test, y_train, y_test = train_test_split(
-    x, y, test_size=0.2, 
-    random_state=42,
-    stratify=y
-    )
+frame.pack(pady=20)
 
-x_train = scaler.fit_transform(x_train)
-x_test = scaler.transform(x_test)
+frame.pack_propagate(False)
 
-model = model.fit(x_train, y_train)
-y_pred = model.predict(x_test)
-accuracy = accuracy_score(y_test, y_pred)
-cm = confusion_matrix(y_test, y_pred)
+gender_label = ctk.CTkLabel(
+    frame,
+    text="Jenis Kelamin"
+)
 
+gender_label.pack(pady=(20,5))
 
+gender = ctk.CTkComboBox(
+    frame,
+    values=[
+        "Male",
+        "Female"
+    ]
+)
 
-print("Output DF INFO dan HEAD")
-print(df.head())
-print(df.info())
-print("================================")
+gender.pack()
 
-print("Total Gender")
-print(df["gender"].value_counts())
-print("===============================")
+umur_label = ctk.CTkLabel(
+    frame,
+    text="Usia"
+)
 
-print(df.describe())
-print("\nKorelasi dengan disease_risk")
-corr = df.corr(numeric_only=True)
-print(corr["disease_risk"].sort_values(ascending=False))
-print("===============================")
+umur_label.pack(pady=(15,5))
 
+umur = ctk.CTkEntry(frame)
 
-print(df.isnull().sum())
-print(df['disease_risk'].value_counts())
-sns.countplot(x='disease_risk', data=df)
-plt.title("Distribusi Disease Risk")
-plt.show()
+umur.pack()
 
-print("Output DF COLUMNS")
-print(df.columns)
-for col in df.columns:
-    print(col)
-    print(df[col].value_counts().head())
-    print("===============================")
+sleep_label = ctk.CTkLabel(
+    frame,
+    text="Durasi Tidur (Jam)"
+)
 
-print("===============================")
-print("Hasil: ")
-print("Akurasi: ", accuracy)
-print("Confusion Matrix: ", cm)
-print("Classification Report: ", classification_report(y_test, y_pred))
-print("Precision: ", precision_score(y_test, y_pred))
-print("Recall: ", recall_score(y_test, y_pred))
-print("F1-Score: ", f1_score(y_test, y_pred))
-print("================================")
+sleep_label.pack(pady=(15,5))
+
+sleep = ctk.CTkEntry(frame)
+
+sleep.pack()
+
+bmi_label = ctk.CTkLabel(
+    frame,
+    text="Kategori BMI"
+)
+
+bmi_label.pack(pady=(15,5))
+
+bmi = ctk.CTkComboBox(
+    frame,
+    values=[
+        "Normal",
+        "Overweight",
+        "Obese",
+        "Underweight"
+    ]
+)
+
+bmi.pack()
+
+activity_label = ctk.CTkLabel(
+    frame,
+    text="Aktivitas Fisik"
+)
+
+activity_label.pack(pady=(15,5))
+
+activity = ctk.CTkEntry(frame)
+
+activity.pack()
+
+steps_label = ctk.CTkLabel(
+    frame,
+    text="Daily Steps"
+)
+
+steps_label.pack(pady=(15,5))
+
+steps = ctk.CTkEntry(frame)
+
+steps.pack()
+
+btn = ctk.CTkButton(
+    frame,
+    text="Prediksi"
+)
+
+btn.pack(pady=30)
+
+app.mainloop()
+

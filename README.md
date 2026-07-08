@@ -31,8 +31,7 @@ Banyak individu kurang menyadari kondisi kesehatannya karena sulit melakukan pem
   * Berat badan
   * Tinggi badan
   * Durasi tidur
-  * Konsumsi alkohol
-  * Kebiasaan merokok
+  * Olahraga
 * **Output Sistem:**
   * **Kategori:** 1. Sehat, 2. Kurang sehat, 3. Tidak sehat.
   * **Skor Kesehatan:** Berupa nilai kepastian/probabilitas.

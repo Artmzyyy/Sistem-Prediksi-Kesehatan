@@ -1,78 +1,119 @@
-# 🏥 Sistem-Prediksi-Kesehatan
+# 🏥 Sistem Prediksi Tingkat Kesehatan Individu
 
-Sistem prediksi tingkat kesehatan individu berbasis *Machine Learning* menggunakan metode *Logistic Regression* berdasarkan pola gaya hidup.
+Sistem prediksi tingkat kesehatan individu berbasis **Machine Learning** menggunakan algoritma **Logistic Regression** berdasarkan indikator gaya hidup dan kondisi fisik pengguna.
 
 ---
 
 ## 📝 Deskripsi Sistem
-Sistem ini merupakan aplikasi berbasis *Artificial Intelligence* (AI) yang digunakan untuk memprediksi tingkat kesehatan individu berdasarkan pola gaya hidup pengguna. 
 
-Sistem bekerja dengan menerima beberapa data masukan (*input*) dari pengguna seperti usia, berat badan, tinggi badan, pola tidur, kebiasaan alkohol, dan kebiasaan merokok. Data tersebut kemudian diproses menggunakan metode *Machine Learning Logistic Regression* untuk menghasilkan prediksi berupa:
-* **Kategori kesehatan pengguna:** Sehat, Kurang Sehat, atau Tidak Sehat.
-* **Skor kesehatan:** Ditampilkan dalam bentuk persentase atau skala tertentu.
+Sistem ini merupakan aplikasi berbasis **Artificial Intelligence (AI)** yang digunakan untuk memprediksi kondisi kesehatan seseorang berdasarkan data yang dimasukkan oleh pengguna.
 
-**Tujuan Utama:** Membantu pengguna mengetahui kondisi kesehatan awal secara sederhana berdasarkan kebiasaan hidup sehari-hari sehingga dapat meningkatkan kesadaran terhadap pentingnya pola hidup sehat.
+Pengguna mengisi beberapa informasi dasar seperti jenis kelamin, usia, tinggi badan, berat badan, durasi tidur, tingkat aktivitas fisik, dan jumlah langkah harian. Sistem kemudian menghitung **Body Mass Index (BMI)** secara otomatis dari tinggi dan berat badan, kemudian seluruh data diproses menggunakan algoritma **Logistic Regression** untuk menghasilkan prediksi kondisi kesehatan.
+
+### Tujuan Sistem
+
+- Membantu pengguna memperoleh gambaran awal mengenai kondisi kesehatannya.
+- Memberikan prediksi berdasarkan pola gaya hidup menggunakan Machine Learning.
+- Meningkatkan kesadaran pengguna terhadap pentingnya menjaga pola hidup sehat.
 
 ---
 
-## 🚀 Langkah-Langkah Definisi Masalah dalam AI
+## 🚀 Definisi Masalah dalam AI
 
 ### A. Identifikasi Masalah
-Banyak individu kurang menyadari kondisi kesehatannya karena sulit melakukan pemeriksaan kesehatan secara rutin. Oleh karena itu, diperlukan sistem yang mampu memberikan prediksi kesehatan awal secara cepat, mudah, dan sederhana.
 
-### B. Menentukan Tujuan Sistem
-* Memprediksi tingkat kesehatan individu secara dini.
-* Membantu pengguna memahami kondisi kesehatannya secara mandiri.
-* Memberikan hasil prediksi objektif berdasarkan data gaya hidup.
+Banyak orang belum memiliki waktu atau akses untuk melakukan pemeriksaan kesehatan secara rutin. Oleh karena itu, diperlukan sebuah sistem yang mampu memberikan prediksi kondisi kesehatan awal secara cepat dan mudah berdasarkan kebiasaan hidup sehari-hari.
 
-### C. Menentukan Input dan Output
-* **Input Sistem:**
-  * Usia
-  * Berat badan
-  * Tinggi badan
-  * Durasi tidur
-  * Olahraga
-* **Output Sistem:**
-  * **Kategori:** 1. Sehat, 2. Kurang sehat, 3. Tidak sehat.
-  * **Skor Kesehatan:** Berupa nilai kepastian/probabilitas.
+### B. Tujuan Sistem
 
-### D. Menentukan Metode AI
-Metode yang digunakan adalah **Machine Learning – Logistic Regression**.
-> **Alasan pemilihan:** Metode ini sangat cocok untuk kasus klasifikasi data, strukturnya sederhana, mudah diimplementasikan, serta memiliki akurasi yang baik untuk karakteristik data yang sederhana.
+- Mengembangkan sistem prediksi kesehatan berbasis Machine Learning.
+- Memberikan hasil prediksi secara otomatis berdasarkan data pengguna.
+- Menjadi media edukasi mengenai pengaruh gaya hidup terhadap kesehatan.
+
+### C. Input dan Output Sistem
+
+### Input
+
+- Gender
+- Age
+- Height
+- Weight
+- BMI (dihitung otomatis)
+- Sleep Duration
+- Physical Activity Level
+- Daily Steps
+
+### Output
+
+- Hasil prediksi kondisi kesehatan berdasarkan model Logistic Regression.
+- Nilai probabilitas (confidence score) dari hasil prediksi.
+
+---
+
+### D. Metode AI
+
+Metode yang digunakan adalah **Machine Learning - Logistic Regression**.
+
+**Alasan pemilihan metode:**
+
+- Cocok untuk permasalahan klasifikasi.
+- Mudah diimplementasikan.
+- Cepat dalam proses pelatihan maupun prediksi.
+- Memiliki performa yang baik untuk dataset dengan karakteristik sederhana hingga menengah.
+
+---
 
 ### E. Pengumpulan Dataset
-Dataset diperoleh dan digabungkan dari dua sumber utama:
-1. Platform kompetisi sains data (**Kaggle**).
-2. Penyebaran **Kuesioner Pengguna** secara mandiri.
+
+Dataset diperoleh melalui dua sumber utama:
+
+1. Dataset kesehatan dari **Kaggle**.
+2. Data tambahan dari **kuesioner** yang disebarkan kepada responden.
 
 ---
 
-## 🧠 Karakteristik Pengetahuan Terkait Aplikasi AI
+# 🧠 Karakteristik Pengetahuan
 
-Sistem ini mengolah tiga karakteristik pengetahuan utama:
+Sistem memanfaatkan beberapa jenis pengetahuan dalam proses prediksi.
 
-### 1. Pengetahuan Bersifat Numerik
-Data kesehatan kuantitatif berupa angka, meliputi:
-* Umur
-* BMI (*Body Mass Index* - dihitung otomatis dari rumus berat badan dan tinggi badan)
-* Durasi tidur
-* Frekuensi konsumsi alkohol
-* Intensitas kebiasaan merokok
+## 1. Pengetahuan Numerik
 
-### 2. Pengetahuan Bersifat Klasifikasi
-Sistem secara cerdas mengelompokkan pengguna ke dalam salah satu dari tiga kategori hasil:
-* 🟢 **Sehat**
-* 🟡 **Kurang Sehat**
-* 🔴 **Tidak Sehat**
+Berupa data yang memiliki nilai numerik, antara lain:
 
-### 3. Pengetahuan Probabilistik
-Hasil akhir dari algoritma *Logistic Regression* berupa nilai peluang (probabilitas) yang merepresentasikan tingkat keyakinan sistem.
-* *Contoh:* Kemungkinan Sehat = **85%** | Kemungkinan Tidak Sehat = **15%**
+- Usia
+- Tinggi badan
+- Berat badan
+- BMI
+- Durasi tidur
+- Jumlah langkah harian
+
+## 2. Pengetahuan Kategorikal
+
+Berupa atribut yang memiliki kategori tertentu, seperti:
+
+- Gender
+- Physical Activity Level
+
+## 3. Pengetahuan Probabilistik
+
+Logistic Regression menghasilkan nilai probabilitas yang menunjukkan tingkat keyakinan model terhadap hasil prediksi.
+
+Contoh:
+
+Status Kesehatan : Baik
+
+Analisis:
+Pola hidup dan pola tidur Anda menunjukkan kondisi yang baik berdasarkan data yang dimasukkan.
+
+Rekomendasi:
+• Pertahankan pola tidur
+• Tetap aktif berolahraga
+• Pertahankan gaya hidup sehat
 
 ---
 
-## 📊 Representasi Pengetahuan
+# 📊 Representasi Pengetahuan
 
-Sistem ini menggunakan model **Tabel Keputusan (Decision Table)** sebagai representasi pengetahuannya. 
+Sistem menggunakan **model klasifikasi Logistic Regression** yang mempelajari hubungan antara variabel masukan dengan label kesehatan dari dataset pelatihan.
 
-Pemilihan model ini didasarkan karena sistem menggunakan kombinasi atribut numerik dan kategorikal yang diproses oleh *Logistic Regression*. Tabel keputusan mempermudah visualisasi dan pemetaan hubungan logis antara variasi data masukan (*input*) dengan hasil akhir klasifikasi kesehatan (*output*).
+Untuk mempermudah proses analisis, data direpresentasikan dalam bentuk atribut-atribut terstruktur seperti usia, BMI, aktivitas fisik, durasi tidur, dan jumlah langkah harian. Model kemudian memanfaatkan hubungan antar atribut tersebut untuk menghasilkan prediksi kondisi kesehatan beserta nilai probabilitasnya.

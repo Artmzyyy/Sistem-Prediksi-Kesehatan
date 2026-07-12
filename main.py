@@ -1,4 +1,6 @@
 import customtkinter as ctk
+from prediction import prediksi
+from tkinter import messagebox
 
 def hitung_bmi(bb, tb):
     tinggi = tb / 100
@@ -15,6 +17,62 @@ def kategori_bmi(bmi):
     else:
         return 2  # Obese
 
+
+def proses_prediksi():
+
+    try:
+
+        gender_value = 1 if gender.get() == "Male" else 0
+
+        age = int(umur.get())
+
+        berat = float(bb.get())
+
+        tinggi = float(tb.get())
+
+        sleep_duration = float(sleep.get())
+
+        activity_value = int(activity.get())
+
+        steps_value = int(steps.get())
+
+        bmi = hitung_bmi(berat, tinggi)
+
+        bmi_category = kategori_bmi(bmi)
+
+        hasil = prediksi(
+            gender_value,
+            age,
+            sleep_duration,
+            bmi_category,
+            activity_value,
+            steps_value
+        )
+
+        messagebox.showinfo(
+            "Hasil Prediksi",
+
+            f"""
+Status Kesehatan
+
+{hasil['status']}
+
+Analisis
+
+{hasil['analisis']}
+
+Saran
+
+{hasil['saran']}
+"""
+        )
+
+    except Exception as e:
+
+        messagebox.showerror(
+            "Error",
+            str(e)
+        )
 
 
 # ==========================================
@@ -108,31 +166,43 @@ sleep.pack()
 
 bmi_label = ctk.CTkLabel(
     frame,
-    text="Kategori BMI"
+    text="Berat Badan"
 )
 
 bmi_label.pack(pady=(15,5))
 
-bmi = ctk.CTkComboBox(
+bb_label = ctk.CTkLabel(
     frame,
-    values=[
-        "Normal",
-        "Overweight",
-        "Obese",
-        "Underweight"
-    ]
+    text="Berat Badan (kg)"
 )
+bb_label.pack(pady=(15,5))
 
-bmi.pack()
+bb = ctk.CTkEntry(frame)
+bb.pack()
+
+tb_label = ctk.CTkLabel(
+    frame,
+    text="Tinggi Badan (cm)"
+)
+tb_label.pack(pady=(15,5))
+
+tb = ctk.CTkEntry(frame)
+tb.pack()
 
 activity_label = ctk.CTkLabel(
     frame,
     text="Aktivitas Fisik"
 )
-
 activity_label.pack(pady=(15,5))
 
-activity = ctk.CTkEntry(frame)
+activity = ctk.CTkSlider(
+    frame,
+    from_=30,
+    to=90,
+    number_of_steps=60
+)
+
+activity.set(60)
 
 activity.pack()
 
@@ -141,15 +211,27 @@ steps_label = ctk.CTkLabel(
     text="Daily Steps"
 )
 
+steps_label = ctk.CTkLabel(
+    frame,
+    text="Daily Steps"
+)
 steps_label.pack(pady=(15,5))
 
-steps = ctk.CTkEntry(frame)
+steps = ctk.CTkSlider(
+    frame,
+    from_=3000,
+    to=10000,
+    number_of_steps=70
+)
+
+steps.set(7000)
 
 steps.pack()
 
 btn = ctk.CTkButton(
     frame,
-    text="Prediksi"
+    text="Prediksi",
+    command=proses_prediksi
 )
 
 btn.pack(pady=30)

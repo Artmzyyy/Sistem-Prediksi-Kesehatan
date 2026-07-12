@@ -32,8 +32,15 @@ def proses_prediksi():
 
         sleep_duration = float(sleep.get())
 
-        activity_value = int(activity.get())
+        aktivitas_mapping = {
+            "Sangat Rendah": 30,
+            "Rendah": 45,
+            "Sedang": 60,
+            "Tinggi": 75,
+            "Sangat Tinggi": 90
+        }
 
+        activity_value = aktivitas_mapping[activity.get()]
         steps_value = int(steps.get())
 
         bmi = hitung_bmi(berat, tinggi)
@@ -125,116 +132,99 @@ frame.pack(pady=20)
 
 frame.pack_propagate(False)
 
-gender_label = ctk.CTkLabel(
-    frame,
-    text="Jenis Kelamin"
-)
+# ==========================================
+# DUA KOLOM
+# ==========================================
 
-gender_label.pack(pady=(20,5))
+left_col = ctk.CTkFrame(frame, fg_color="transparent")
+right_col = ctk.CTkFrame(frame, fg_color="transparent")
+
+left_col.grid(row=0, column=0, padx=40, pady=25, sticky="n")
+right_col.grid(row=0, column=1, padx=40, pady=25, sticky="n")
+
+# --------------------------
+# KOLOM KIRI
+# --------------------------
+
+ctk.CTkLabel(left_col, text="Jenis Kelamin").pack(anchor="w", pady=(0,5))
 
 gender = ctk.CTkComboBox(
-    frame,
-    values=[
-        "Male",
-        "Female"
-    ]
+    left_col,
+    values=["Male","Female"],
+    width=250
 )
-
+gender.set("Male")
 gender.pack()
 
-umur_label = ctk.CTkLabel(
-    frame,
-    text="Usia"
-)
+ctk.CTkLabel(left_col, text="Usia").pack(anchor="w", pady=(15,5))
 
-umur_label.pack(pady=(15,5))
-
-umur = ctk.CTkEntry(frame)
-
+umur = ctk.CTkEntry(left_col,width=250)
 umur.pack()
 
-sleep_label = ctk.CTkLabel(
-    frame,
-    text="Durasi Tidur (Jam)"
-)
+ctk.CTkLabel(left_col, text="Durasi Tidur (Jam)").pack(anchor="w", pady=(15,5))
 
-sleep_label.pack(pady=(15,5))
-
-sleep = ctk.CTkEntry(frame)
-
+sleep = ctk.CTkEntry(left_col,width=250)
 sleep.pack()
 
-bmi_label = ctk.CTkLabel(
-    frame,
-    text="Berat Badan"
-)
+# --------------------------
+# KOLOM KANAN
+# --------------------------
 
-bmi_label.pack(pady=(15,5))
+ctk.CTkLabel(right_col, text="Berat Badan (kg)").pack(anchor="w", pady=(0,5))
 
-bb_label = ctk.CTkLabel(
-    frame,
-    text="Berat Badan (kg)"
-)
-bb_label.pack(pady=(15,5))
-
-bb = ctk.CTkEntry(frame)
+bb = ctk.CTkEntry(right_col,width=250)
 bb.pack()
 
-tb_label = ctk.CTkLabel(
-    frame,
-    text="Tinggi Badan (cm)"
-)
-tb_label.pack(pady=(15,5))
+ctk.CTkLabel(right_col, text="Tinggi Badan (cm)").pack(anchor="w", pady=(15,5))
 
-tb = ctk.CTkEntry(frame)
+tb = ctk.CTkEntry(right_col,width=250)
 tb.pack()
 
-activity_label = ctk.CTkLabel(
-    frame,
-    text="Aktivitas Fisik"
+ctk.CTkLabel(right_col, text="Aktivitas Fisik").pack(anchor="w", pady=(15,5))
+
+activity = ctk.CTkComboBox(
+    right_col,
+    values=[
+        "Sangat Rendah",
+        "Rendah",
+        "Sedang",
+        "Tinggi",
+        "Sangat Tinggi"
+    ],
+    width=250
 )
-activity_label.pack(pady=(15,5))
 
-activity = ctk.CTkSlider(
-    frame,
-    from_=30,
-    to=90,
-    number_of_steps=60
-)
-
-activity.set(60)
-
+activity.set("Sedang")
 activity.pack()
 
-steps_label = ctk.CTkLabel(
-    frame,
-    text="Daily Steps"
-)
+ctk.CTkLabel(right_col, text="Daily Steps").pack(anchor="w", pady=(15,5))
 
-steps_label = ctk.CTkLabel(
-    frame,
-    text="Daily Steps"
-)
-steps_label.pack(pady=(15,5))
-
-steps = ctk.CTkSlider(
-    frame,
-    from_=3000,
-    to=10000,
-    number_of_steps=70
-)
-
-steps.set(7000)
-
+steps = ctk.CTkEntry(right_col,width=250)
+steps.insert(0,"7000")
 steps.pack()
 
-btn = ctk.CTkButton(
+# --------------------------
+# TOMBOL
+# --------------------------
+
+btn_prediksi = ctk.CTkButton(
     frame,
-    text="Prediksi",
+    text="Prediksi Kesehatan",
+    width=350,
+    height=42,
+    font=("Arial",16,"bold"),
     command=proses_prediksi
 )
 
-btn.pack(pady=30)
+btn_prediksi.grid(
+    row=1,
+    column=0,
+    columnspan=2,
+    pady=(20,10)
+)
+
+
+
 
 app.mainloop()
 

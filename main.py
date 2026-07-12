@@ -2,6 +2,10 @@ import customtkinter as ctk
 from prediction import prediksi
 from tkinter import messagebox
 
+# =========================================
+# FUNGSI UNTUK MENGHITUNG BMI DAN KATEGORI BMI
+#=========================================
+
 def hitung_bmi(bb, tb):
     tinggi = tb / 100
     bmi = bb / (tinggi * tinggi)
@@ -17,6 +21,9 @@ def kategori_bmi(bmi):
     else:
         return 2  # Obese
 
+#=========================================
+# FUNGSI UNTUK MEMPROSES PREDIKSI
+#=========================================
 
 def proses_prediksi():
 
@@ -56,23 +63,73 @@ def proses_prediksi():
             steps_value
         )
 
-        messagebox.showinfo(
-            "Hasil Prediksi",
+               # ==========================
+        # WINDOW HASIL PREDIKSI
+        # ==========================
 
-            f"""
-Status Kesehatan
+        hasil_window = ctk.CTkToplevel(app)
+        hasil_window.title("Hasil Prediksi")
+        hasil_window.geometry("520x450")
+        hasil_window.resizable(False, False)
+        hasil_window.grab_set()
 
-{hasil['status']}
+        # Warna status
+        if hasil["status"] == "Sehat":
+            warna = "#2ECC71"
+        elif hasil["status"] == "Perlu Perhatian":
+            warna = "#F39C12"
+        else:
+            warna = "#E74C3C"
 
-Analisis
+        ctk.CTkLabel(
+            hasil_window,
+            text="HASIL PREDIKSI KESEHATAN",
+            font=("Arial", 22, "bold")
+        ).pack(pady=(20,10))
 
-{hasil['analisis']}
+        ctk.CTkLabel(
+            hasil_window,
+            text=hasil["status"],
+            font=("Arial", 24, "bold"),
+            text_color=warna
+        ).pack(pady=(0,20))
 
-Saran
+        ctk.CTkLabel(
+            hasil_window,
+            text="Analisis",
+            font=("Arial",16,"bold")
+        ).pack(anchor="w", padx=30)
 
-{hasil['saran']}
-"""
+        analisis = ctk.CTkTextbox(
+            hasil_window,
+            width=450,
+            height=90
         )
+        analisis.pack(pady=5)
+        analisis.insert("0.0", hasil["analisis"])
+        analisis.configure(state="disabled")
+
+        ctk.CTkLabel(
+            hasil_window,
+            text="Saran",
+            font=("Arial",16,"bold")
+        ).pack(anchor="w", padx=30)
+
+        saran = ctk.CTkTextbox(
+            hasil_window,
+            width=450,
+            height=110
+        )
+        saran.pack(pady=5)
+        saran.insert("0.0", hasil["saran"])
+        saran.configure(state="disabled")
+
+        ctk.CTkButton(
+            hasil_window,
+            text="Tutup",
+            width=170,
+            command=hasil_window.destroy
+        ).pack(pady=20)
 
     except Exception as e:
 
@@ -132,19 +189,11 @@ frame.pack(pady=20)
 
 frame.pack_propagate(False)
 
-# ==========================================
-# DUA KOLOM
-# ==========================================
-
 left_col = ctk.CTkFrame(frame, fg_color="transparent")
 right_col = ctk.CTkFrame(frame, fg_color="transparent")
 
 left_col.grid(row=0, column=0, padx=40, pady=25, sticky="n")
 right_col.grid(row=0, column=1, padx=40, pady=25, sticky="n")
-
-# --------------------------
-# KOLOM KIRI
-# --------------------------
 
 ctk.CTkLabel(left_col, text="Jenis Kelamin").pack(anchor="w", pady=(0,5))
 
@@ -166,10 +215,6 @@ ctk.CTkLabel(left_col, text="Durasi Tidur (Jam)").pack(anchor="w", pady=(15,5))
 sleep = ctk.CTkEntry(left_col,width=250)
 sleep.pack()
 
-# --------------------------
-# KOLOM KANAN
-# --------------------------
-
 ctk.CTkLabel(right_col, text="Berat Badan (kg)").pack(anchor="w", pady=(0,5))
 
 bb = ctk.CTkEntry(right_col,width=250)
@@ -181,6 +226,10 @@ tb = ctk.CTkEntry(right_col,width=250)
 tb.pack()
 
 ctk.CTkLabel(right_col, text="Aktivitas Fisik").pack(anchor="w", pady=(15,5))
+
+#--------------------------
+# DROPDOWN AKTIVITAS FISIK
+#--------------------------
 
 activity = ctk.CTkComboBox(
     right_col,
@@ -196,6 +245,10 @@ activity = ctk.CTkComboBox(
 
 activity.set("Sedang")
 activity.pack()
+
+#--------------------------
+# DAILY STEPS
+#--------------------------
 
 ctk.CTkLabel(right_col, text="Daily Steps").pack(anchor="w", pady=(15,5))
 
